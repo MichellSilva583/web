@@ -1,0 +1,5 @@
+title: Reporte de Proyecciones de Retiros
+description: Dashboard interactivo de proyecciones 2025-2029
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-seo-tag

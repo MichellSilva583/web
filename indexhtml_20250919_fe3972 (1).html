@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Proyecciones de Retiros</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+        }
+        .header h1 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        /* ... (todo el CSS que ya tienes) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Reporte de Proyecciones de Retiros</h1>
+            <p>Análisis completo de proyecciones 2025-2029</p>
+            <p><strong>Generado el:</strong> <span id="fecha-generacion"></span></p>
+        </div>
+
+        <!-- El contenido se cargará dinámicamente -->
+        <div id="contenido"></div>
+    </div>
+
+    <script>
+        // Función para cargar los datos
+        async function cargarReporte() {
+            try {
+                const response = await fetch('data/reporte_data.json');
+                const data = await response.json();
+                
+                // Actualizar fecha
+                document.getElementById('fecha-generacion').textContent = data.fecha_generacion;
+                
+                // Cargar gráficos y contenido
+                document.getElementById('contenido').innerHTML = data.html_content;
+                
+            } catch (error) {
+                console.error('Error cargando el reporte:', error);
+                document.getElementById('contenido').innerHTML = `
+                    <div style="text-align: center; padding: 50px; color: #666;">
+                        <h2>⚠️ Error al cargar el reporte</h2>
+                        <p>No se pudieron cargar los datos. Por favor, intenta más tarde.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Iniciar carga cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', cargarReporte);
+    </script>
+</body>
+</html>
